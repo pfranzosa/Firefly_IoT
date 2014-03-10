@@ -1,4 +1,4 @@
-Firefly Internet of Things
+Firefly Internet of Things systems
 
 Things needed:
 	Arduino software
