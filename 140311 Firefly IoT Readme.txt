@@ -1,7 +1,7 @@
 Design That Matters
     Firefly Internet of Things 03/11/2014
 	Author: David Solomon 
-	Edited by:
+	Edited by: Will Harris
 
 Summary:
 	This project uses an Arduino, and an electric imp to connect a device to the internet. Using the Adafruit BMP 180 to collect data and a simple button to
