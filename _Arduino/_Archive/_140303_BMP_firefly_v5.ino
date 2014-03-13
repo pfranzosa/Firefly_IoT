@@ -18,7 +18,7 @@
  */
 
 const int led = 12;            // This is the pin that the leds are connected to in series
-const int buttonPin = 7;       /* 
+const int buttonPin = 8;       /* 
                                  This is the pin where the output of the button connects to the board
                                  Connect one pin of the button to ground and on the same side 
                                  connect the other pin to 3.3v
@@ -47,21 +47,26 @@ void setup(void)
 
 void loop(void) 
 {   
+  sensors_event_t event;
+  bmp.getEvent(&event);
+    
   buttonState = digitalRead(buttonPin); 
   if (buttonState == HIGH) {
     if(PressNum%2==0)
     {
           digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
           PressNum=PressNum++;
+          delay(2000);  
     }
     else
     {
          digitalWrite(led, LOW);   // turn the LED off(HIGH is the voltage level)
          PressNum=PressNum++;
+         delay(2000);  
     }
   
-    sensors_event_t event;
-    bmp.getEvent(&event);
+  
+    
 
     /* Display the results (barometric pressure is measure in hPa) */
     if (event.pressure)
@@ -71,17 +76,19 @@ void loop(void)
          Serial.print("Pressure:    ");
          Serial.print(event.pressure);
          Serial.println(" hPa");    
-       */
-      float pressure =event.pressure;     
-
+      */ 
+        float pressure = event.pressure;     
+         
       /* First we get the current temperature from the BMP085 */
       float temperature;
       bmp.getTemperature(&temperature);
+      float tempc=temperature;
       /*
         Serial.print("Temperature: ");
-        Serial.print(" C     ");
-        float tempc=temperature;
+        Serial.print(tempc);
+        Serial.println(" C     ");
       */
+      
 
       float seaLevelPressure = SENSORS_PRESSURE_SEALEVELHPA;
       /*
@@ -90,16 +97,15 @@ void loop(void)
          Serial.println(" m");
          Serial.println("");
        */
-
+       
+      //pressure = pressure/4;
       float altitude = bmp.pressureToAltitude(seaLevelPressure, event.pressure,temperature);  
-      byte data[] = {(byte)temperature,(byte)pressure,(byte)altitude};
+      byte data[] = {(byte)tempc,(byte)pressure,(byte)altitude};
 
-      Serial.write(data, 4);
-      delay(4000);      
+      Serial.write(data,4);
     }   
-    else { Serial.println("Sensor error"); }  
+    else { Serial.println("Sensor error"); }
   }
-  else{}
 }
   
 
