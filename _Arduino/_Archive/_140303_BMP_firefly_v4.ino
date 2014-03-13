@@ -8,7 +8,13 @@
  Connect SCL to analog 5
  Connect SDA to analog 4
  Connect VDD to 3.3V DC
- Connect GROUND to common ground    
+ Connect GROUND to common ground   
+
+ Summary
+ ========
+ This Arduino code calculates the temperture, pressure, and altitude of the area and 
+ sends that information over to the electric imp using the tx port (digital pin 1) on the arduino 
+ to the rx port on the imp (pin 5) and serial.write
  */
 
 Adafruit_BMP085_Unified bmp = Adafruit_BMP085_Unified(10085);
